@@ -45,7 +45,7 @@ Elseif ($Group.Count -gt 1) { # More than one groupfound. Ask which to use
 
 Write-Host ("Setting group creation control to {0} using group name {1}." -f $Control, $GroupAllowedToCreate)
 
-$PolicySettingsId = (Get-AzureADDirectorySetting | ? {$_.DisplayName -eq "Group.Unified"}).Id
+$PolicySettingsId = (Get-AzureADDirectorySetting | Where-Object {$_.DisplayName -eq "Group.Unified"}).Id
 If (!$PolicySettingsId) { # No policy settings found for the tenant, so create it and extract the identifier
   $PolicyTemplate = Get-AzureADDirectorySettingTemplate | ? {$_.DisplayName -eq "Group.Unified"}
   $PolicySettings = $PolicyTemplate.CreateDirectorySetting()
